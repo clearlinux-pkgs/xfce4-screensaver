@@ -1,0 +1,10 @@
+Configure miss: XScreenSaverRegister in -lXext
+Configure miss: XScreenSaverRegister in -lXExExt
+Configure miss: whether to use xscreensaver hacks configuration
+Configure miss: location of xscreensaver hack executables
+Configure miss: Sun-style shadow passwords
+Configure miss: DEC-style shadow passwords
+Configure miss: HP-style shadow passwords
+Configure miss: FreeBSD-style shadow passwords
+Configure miss: crypt in -lc
+Configure miss: ELOGIND
