@@ -4,7 +4,7 @@
 #
 Name     : xfce4-screensaver
 Version  : 0.1.9
-Release  : 1
+Release  : 2
 URL      : https://archive.xfce.org/src/apps/xfce4-screensaver/0.1/xfce4-screensaver-0.1.9.tar.bz2
 Source0  : https://archive.xfce.org/src/apps/xfce4-screensaver/0.1/xfce4-screensaver-0.1.9.tar.bz2
 Summary  : No detailed summary available
