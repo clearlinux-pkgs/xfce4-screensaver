@@ -4,10 +4,10 @@
 # Using build pattern: configure
 #
 Name     : xfce4-screensaver
-Version  : 4.18.0
-Release  : 5
-URL      : https://archive.xfce.org/src/apps/xfce4-screensaver/4.18/xfce4-screensaver-4.18.0.tar.bz2
-Source0  : https://archive.xfce.org/src/apps/xfce4-screensaver/4.18/xfce4-screensaver-4.18.0.tar.bz2
+Version  : 4.18.1
+Release  : 6
+URL      : https://archive.xfce.org/src/apps/xfce4-screensaver/4.18/xfce4-screensaver-4.18.1.tar.bz2
+Source0  : https://archive.xfce.org/src/apps/xfce4-screensaver/4.18/xfce4-screensaver-4.18.1.tar.bz2
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0 LGPL-2.1
@@ -18,6 +18,7 @@ Requires: xfce4-screensaver-license = %{version}-%{release}
 Requires: xfce4-screensaver-locales = %{version}-%{release}
 Requires: xfce4-screensaver-man = %{version}-%{release}
 BuildRequires : Linux-PAM-dev
+BuildRequires : buildreq-configure
 BuildRequires : gettext
 BuildRequires : glibc-staticdev
 BuildRequires : intltool
@@ -98,15 +99,15 @@ man components for the xfce4-screensaver package.
 
 
 %prep
-%setup -q -n xfce4-screensaver-4.18.0
-cd %{_builddir}/xfce4-screensaver-4.18.0
+%setup -q -n xfce4-screensaver-4.18.1
+cd %{_builddir}/xfce4-screensaver-4.18.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1679335009
+export SOURCE_DATE_EPOCH=1680053095
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -126,7 +127,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1679335009
+export SOURCE_DATE_EPOCH=1680053095
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/xfce4-screensaver
 cp %{_builddir}/xfce4-screensaver-%{version}/COPYING %{buildroot}/usr/share/package-licenses/xfce4-screensaver/4cc77b90af91e615a64ae04893fdffa7939db84c || :
