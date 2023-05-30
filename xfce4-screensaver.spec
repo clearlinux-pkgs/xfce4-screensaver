@@ -4,10 +4,10 @@
 # Using build pattern: configure
 #
 Name     : xfce4-screensaver
-Version  : 4.18.1
-Release  : 6
-URL      : https://archive.xfce.org/src/apps/xfce4-screensaver/4.18/xfce4-screensaver-4.18.1.tar.bz2
-Source0  : https://archive.xfce.org/src/apps/xfce4-screensaver/4.18/xfce4-screensaver-4.18.1.tar.bz2
+Version  : 4.18.2
+Release  : 7
+URL      : https://archive.xfce.org/src/apps/xfce4-screensaver/4.18/xfce4-screensaver-4.18.2.tar.bz2
+Source0  : https://archive.xfce.org/src/apps/xfce4-screensaver/4.18/xfce4-screensaver-4.18.2.tar.bz2
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0 LGPL-2.1
@@ -99,48 +99,70 @@ man components for the xfce4-screensaver package.
 
 
 %prep
-%setup -q -n xfce4-screensaver-4.18.1
-cd %{_builddir}/xfce4-screensaver-4.18.1
+%setup -q -n xfce4-screensaver-4.18.2
+cd %{_builddir}/xfce4-screensaver-4.18.2
+pushd ..
+cp -a xfce4-screensaver-4.18.2 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1680053095
+export SOURCE_DATE_EPOCH=1685466090
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 %configure --disable-static
 make  %{?_smp_mflags}
 
+unset PKG_CONFIG_PATH
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
+%configure --disable-static
+make  %{?_smp_mflags}
+popd
 %check
 export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
+cd ../buildavx2;
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1680053095
+export SOURCE_DATE_EPOCH=1685466090
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/xfce4-screensaver
 cp %{_builddir}/xfce4-screensaver-%{version}/COPYING %{buildroot}/usr/share/package-licenses/xfce4-screensaver/4cc77b90af91e615a64ae04893fdffa7939db84c || :
 cp %{_builddir}/xfce4-screensaver-%{version}/COPYING.LGPL %{buildroot}/usr/share/package-licenses/xfce4-screensaver/01a6b4bf79aca9b556822601186afab86e8c4fbf || :
 cp %{_builddir}/xfce4-screensaver-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/xfce4-screensaver/ba8966e2473a9969bdcab3dc82274c817cfd98a1 || :
+pushd ../buildavx2/
+%make_install_v3
+popd
 %make_install
 %find_lang xfce4-screensaver
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/xfce4-screensaver
+/V3/usr/bin/xfce4-screensaver-command
+/V3/usr/bin/xfce4-screensaver-preferences
 /usr/bin/xfce4-screensaver
 /usr/bin/xfce4-screensaver-command
 /usr/bin/xfce4-screensaver-configure
@@ -164,6 +186,11 @@ cp %{_builddir}/xfce4-screensaver-%{version}/COPYING.LIB %{buildroot}/usr/share/
 
 %files libexec
 %defattr(-,root,root,-)
+/V3/usr/libexec/xfce4-screensaver-dialog
+/V3/usr/libexec/xfce4-screensaver-gl-helper
+/V3/usr/libexec/xfce4-screensaver/floaters
+/V3/usr/libexec/xfce4-screensaver/popsquares
+/V3/usr/libexec/xfce4-screensaver/slideshow
 /usr/libexec/xfce4-screensaver-dialog
 /usr/libexec/xfce4-screensaver-gl-helper
 /usr/libexec/xfce4-screensaver/floaters
