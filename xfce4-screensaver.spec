@@ -5,7 +5,7 @@
 #
 Name     : xfce4-screensaver
 Version  : 4.18.2
-Release  : 7
+Release  : 8
 URL      : https://archive.xfce.org/src/apps/xfce4-screensaver/4.18/xfce4-screensaver-4.18.2.tar.bz2
 Source0  : https://archive.xfce.org/src/apps/xfce4-screensaver/4.18/xfce4-screensaver-4.18.2.tar.bz2
 Summary  : No detailed summary available
@@ -110,7 +110,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1685466090
+export SOURCE_DATE_EPOCH=1685479860
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -142,7 +142,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1685466090
+export SOURCE_DATE_EPOCH=1685479860
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/xfce4-screensaver
 cp %{_builddir}/xfce4-screensaver-%{version}/COPYING %{buildroot}/usr/share/package-licenses/xfce4-screensaver/4cc77b90af91e615a64ae04893fdffa7939db84c || :
