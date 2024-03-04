@@ -1,7 +1,5 @@
 Configure miss: DEC-style shadow passwords
 Configure miss: DEC-style shadow passwords
-Configure miss: ELOGIND
-Configure miss: ELOGIND
 Configure miss: FreeBSD-style shadow passwords
 Configure miss: FreeBSD-style shadow passwords
 Configure miss: HP-style shadow passwords
@@ -10,6 +8,8 @@ Configure miss: Sun-style shadow passwords
 Configure miss: Sun-style shadow passwords
 Configure miss: crypt in -lc
 Configure miss: crypt in -lc
+Configure miss: libelogind
+Configure miss: libelogind
 Configure miss: location of xscreensaver hack executables
 Configure miss: location of xscreensaver hack executables
 Configure miss: whether to use xscreensaver hacks configuration
