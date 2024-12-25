@@ -1,0 +1,13 @@
+/etc/:
+/etc/pam.d:
+/etc/xdg/autostart:
+/etc/xdg/menus:
+/etc/xdg:
+autostart
+menus
+pam.d
+xdg
+xdg' ']'
+xfce4-screensaver
+xfce4-screensaver.desktop
+xfce4-screensavers.menu
